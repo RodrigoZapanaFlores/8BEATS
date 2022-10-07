@@ -1,28 +1,34 @@
-const Beat = require('../models/beat.model');
+const Beat = require("../models/beat.model");
+const Like = require("../models/like.model");
+const createError = require("http-errors");
 
 module.exports.list = (req, res, next) => {
   Beat.find()
+    .populate("owner", "name email")
     .then((beats) => res.json(beats))
     .catch((error) => next(error));
 };
+
 module.exports.create = (req, res, next) => {
-  Beat.create({
-    thumbnail: req.body.thumbnail,
-    category: req.body.category,
-    url: req.body.url,
-    author: req.body.author,
-    description: req.body.description,
-    title: req.body.title,
-  })
-    .then((beat) => {
-      res.status(201).json(beat);
-    })
+  const beat = req.body;
+  delete beat.views;
+  beat.owner = req.user.id;
+
+  Beat.create(beat)
+    .then((beat) => res.status(201).json(beat))
     .catch(next);
 };
 
-
 module.exports.detail = (req, res, next) => {
   Beat.findById(req.params.id)
+    .populate("owner", "name email")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "user",
+      },
+    })
+    .populate("likes")
     .then((beat) => {
       if (beat) {
         res.json(beat);
@@ -34,39 +40,38 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-  Beat.findByIdAndUpdate(
-    req.params.id,
-    {
-      thumbnail: req.body.thumbnail,
-      category: req.body.category,
-      url: req.body.url,
-      author: req.body.author,
-      description: req.body.description,
-      title: req.body.title,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  )
-    .then((beat) => {
-      if (beat) {
-        res.json(beat);
-      } else {
-        next(createError(404, "beat not found"));
-      }
-    })
+  const data = req.body;
+  delete data.views;
+  delete data.owner;
+
+  const beat = Object.assign(req.beat, data);
+  beat
+    .save()
+    .then((beat) => res.json(beat))
     .catch(next);
 };
 
 module.exports.delete = (req, res, next) => {
-  Beat.findByIdAndDelete(req.params.id)
-    .then((beat) => {
-      if (beat) {
-        res.status(204).send();
+  Beat.deleteOne({ _id: req.beat.id })
+    .then(() => res.status(204).send())
+    .catch(next);
+};
+
+module.exports.like = (req, res, next) => {
+  const detail = {
+    user: req.user.id,
+    beat: req.params.id,
+  };
+
+  Like.findOne(detail)
+    .then((like) => {
+      if (like) {
+        return Like.deleteOne(detail);
       } else {
-        next(createError(404, "beat not found"));
+        return Like.create(detail);
       }
     })
+    .then(() => Like.count(detail))
+    .then((likes) => res.json({ likes }))
     .catch(next);
 };

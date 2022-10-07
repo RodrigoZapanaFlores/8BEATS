@@ -7,7 +7,7 @@ Beat.deleteMany({})
 .then(() => {
   for (let i = 0; i < 20; i++) {
 
-     // TODO: añadir caracteristicas del modelo para evitar error, cambiar modelo de model.js
+     // TODO: añadir caracteristicas del modelo para evitar error, cambiar modelo de beatmodel.js---bpm machine
     Beat.create({
       title: faker.music.songName(),
       description: faker.lorem.paragraph(),

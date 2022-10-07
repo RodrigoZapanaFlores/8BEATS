@@ -1,84 +1,94 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const categories = require("../data/categories");
+
+const isURL = (value) => {
+  try {
+    new URL(value);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
 
 const beatSchema = new Schema(
   {
     title: {
       type: String,
-      required: 'Title is required',
+      required: "Title is required",
       trim: true,
-      maxLength: [100, `Title must be <= 100 chars`], 
-    },
-    author: {
-      type: String,
-      required: "Author is required",
-      trim: true,
+      maxLength: [100, `Title must be <= 100 chars`],
     },
     description: {
       type: String,
-      required: 'Description is required',
+      required: "Description is required",
     },
-    /*bpms: {
-      type: String,
-      required: 'Title is required',
-      minLength: [3, 'Title needs at least 3 chars'] 
-    },
-    machine: {
-      type: String,
-      required: 'Title is required',
-      minLength: [3, 'Title needs at least 3 chars'] 
-    },*/
-
     url: {
       type: String,
-      required: 'url process is required',
+      required: "Url is required",
       trim: true,
+      validate: {
+        validator: isURL,
+        message: "URL is not valid",
+      },
     },
-
-    views: {
-      type: Number,
+    views: Number,
+    categories: {
+      type: [
+        {
+          type: String,
+          required: "Category is required",
+          enum: categories.map((category) => category.value),
+          trim: true,
+        },
+      ],
+      default: [],
     },
-
-    category: {
-      type: String,  
-      required: "Category is required",
-      trim: true,
-      
-    },
-
-    duration: {
-      type: Number,  
-      
-    },
-
     thumbnail: {
-      type: String,  
+      type: String,
       required: "Thumbnail is required",
       trim: true,
+      validate: {
+        validator: isURL,
+        message: "URL is not valid",
+      },
     },
-
-    /*audio: {
-      type: String,
-      
-    },*/
-
     private: {
-        type: Boolean,
+      type: Boolean,
+      default: false,
     },
-   },
-   {
-   timestamps: true,
-   toJSON: {
-     transform: (doc, ret) => {
-       delete ret.__v;
-       ret.id = ret._id;
-       delete ret._id;
-
-       return ret;
-     },
-   },
- }
+    owner: {
+      ref: "User",
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: (doc, ret) => {
+        delete ret.__v;
+        ret.id = ret._id;
+        delete ret._id;
+        return ret;
+      },
+    },
+  }
 );
 
-const Beat = mongoose.model('Beat', beatSchema);
+beatSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "beat",
+});
+
+beatSchema.virtual("likes", {
+  ref: "Like",
+  localField: "_id",
+  foreignField: "beat",
+  count: true,
+});
+
+const Beat = mongoose.model("Beat", beatSchema);
 module.exports = Beat;

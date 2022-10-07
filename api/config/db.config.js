@@ -1,7 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/8BEATS'
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/8BEATS";
 
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log(`Successfully connected to the database ${MONGODB_URI}`))
-  .catch(error => console.error(`An error ocurred trying to connect to ${MONGODB_URI}`, error))
+mongoose
+  .connect(MONGODB_URI)
+  .then(() =>
+    console.log(`Successfully connected to the database ${MONGODB_URI}`)
+  )
+  .catch((error) =>
+    console.error(`An error ocurred trying to connect to ${MONGODB_URI}`, error)
+  );
