@@ -1,4 +1,4 @@
-const createError = require("http-errors");
+/*const createError = require("http-errors");
 const User = require("../models/user.model");
 const mongoose = require("mongoose");
 
@@ -83,3 +83,4 @@ module.exports.slack = (req, res, next) => {
     })
     .catch(next);
 };
+*/

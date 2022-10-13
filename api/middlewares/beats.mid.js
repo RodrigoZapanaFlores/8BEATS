@@ -1,4 +1,4 @@
-const Beat = require("../models/beat.model");
+/*const Beat = require("../models/beat.model");
 const Comment = require("../models/comment.model");
 const createError = require("http-errors");
 
@@ -36,3 +36,5 @@ module.exports.isCommentOwnedByUser = (req, res, next) => {
     })
     .catch(next);
 };
+
+*/

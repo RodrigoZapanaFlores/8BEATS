@@ -1,4 +1,77 @@
+
 const Beat = require("../models/beat.model");
+const createError = require("http-errors");
+
+module.exports.list = (req, res, next) => {
+  Beat.find()
+    .then((beats) => res.json(beats))
+    .catch((error) => next(error));
+};
+
+module.exports.create = (req, res, next) => {
+  const beat = req.body;
+  delete beat.views;
+  beat.owner = req.user.id;
+
+  Beat.create(beat)
+    .then((beat) => res.status(201).json(beat))
+    .catch(next);
+};
+
+module.exports.detail = (req, res, next) => {
+  Beat.findById(req.params.id)
+    .then((beat) => {
+      if (beat) {
+        res.json(beat);
+      } else {
+        next(createError(404, "beat not found"));
+      }
+    })
+    .catch(next);
+};
+
+module.exports.update = (req, res, next) => {
+  const stream = req.body;
+  delete stream.views;
+
+  Stream.findByIdAndUpdate(
+    req.params.id,
+    stream,
+    {
+      new: true,
+      runValidators: true,
+    }
+  )
+    .then((stream) => {
+      if (stream) {
+        res.json(stream);
+      } else {
+        next(createError(404, "stream not found"));
+      }
+    })
+    .catch(next);
+};
+
+module.exports.delete = (req, res, next) => {
+  Beat.findByIdAndDelete(req.params.id)
+    .then((beat) => {
+      if (beat) {
+        res.status(204).send();
+      } else {
+        next(createError(404, "beat not found"));
+      }
+    })
+    .catch(next);
+};
+
+
+
+
+
+
+
+
+/*const Beat = require("../models/beat.model");
 const Like = require("../models/like.model");
 const createError = require("http-errors");
 
@@ -75,3 +148,5 @@ module.exports.like = (req, res, next) => {
     .then((likes) => res.json({ likes }))
     .catch(next);
 };
+
+*/

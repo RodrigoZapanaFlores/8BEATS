@@ -1,6 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const beats = require("../controllers/beats.controller");
+
+router.get("/beats", beats.list);
+router.post("/beats", beats.create);
+router.get("/beats/:id", beats.detail);
+router.patch("/beats/:id", beats.update);
+router.delete("/beats/:id", beats.delete);
+
+module.exports = router;
+
+
+/*const express = require("express");
+const router = express.Router();
+const beats = require("../controllers/beats.controller");
 const comments = require("../controllers/comments.controller");
 const passport = require("passport");
 const auth = require("../controllers/auth.controller");
@@ -47,3 +60,5 @@ router.delete(
 );
 
 module.exports = router;
+
+*/

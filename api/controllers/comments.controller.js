@@ -1,4 +1,4 @@
-const Comment = require("../models/comment.model");
+/*const Comment = require("../models/comment.model");
 const createError = require("http-errors");
 
 module.exports.create = (req, res, next) => {
@@ -25,3 +25,4 @@ module.exports.delete = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch(next);
 };
+*/

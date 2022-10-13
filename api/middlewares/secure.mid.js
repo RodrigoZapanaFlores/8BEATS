@@ -1,4 +1,4 @@
-const createError = require('http-errors');
+/*const createError = require('http-errors');
 
 module.exports.isAuthenticated = (req, res, next) => {
   if (req.user) {
@@ -7,3 +7,5 @@ module.exports.isAuthenticated = (req, res, next) => {
     next(createError(401))
   }
 }
+
+*/
