@@ -1,17 +1,19 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as beatsService from '../../../services/beat-service';
 import Select from 'react-select';
 import categories from '../../../data/categories';
+import { isURL } from '../../../utils/validations';
 
 function BeatForm() {
-  const { register, handleSubmit, setError, control, watch, formState: { errors, isValid } } = useForm({ mode: 'onTouched' });
-  console.log('categories', watch('categories'));
+  const navigation = useNavigate();
+  const { register, handleSubmit, setError, control, formState: { errors, isValid } } = useForm({ mode: 'onTouched' });
 
   const handleCreateBeatSubmit = (data) => {
     console.log(data);
     beatsService.createBeat(data)
-      .then(beat => console.log('Todo bien majo', beat))
+      .then(beat => navigation('/'))
       .catch(error => {
         if (error.response?.data?.errors) {
           const { errors } = error.response.data;
@@ -31,29 +33,10 @@ function BeatForm() {
         <input type="text" className={`form-control ${errors.title ? 'is-invalid' : ''}`} placeholder="Beat title..." 
           {...register('title', { 
             required: 'Title is required', 
-            // maxLength: { value: 5, message: 'Title must be <= 100 chars' }
+            maxLength: { value: 100, message: 'Title must be <= 100 chars' }
           })} />
         {errors.title && (<div className="invalid-feedback">{errors.title.message}</div>)}
       </div>
-
-
-      <div className="input-group mb-1">
-        <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
-        <input type="text" className={`form-control ${errors.thumbnail ? 'is-invalid' : ''}`} placeholder="Beat thumbnail..."
-          {...register('thumbnail', {
-            required: 'Thumbnail is required',
-            validate: (value) => {
-              try {
-                new URL(value);
-                return true;
-              } catch (error) {
-                return 'URL is not valid';
-              }
-            }
-          })} />
-        {errors.thumbnail && (<div className="invalid-feedback">{errors.thumbnail.message}</div>)}
-      </div>
-        
 
       <div className="input-group mb-1">
         <span className="input-group-text"><i className='fa fa-edit fa-fw'></i></span>
@@ -64,6 +47,25 @@ function BeatForm() {
         />
       </div>
 
+      <div className="input-group mb-1">
+        <span className="input-group-text"><i className='fa fa-picture-o fa-fw'></i></span>
+        <input type="text" className={`form-control ${errors.thumbnail ? 'is-invalid' : ''}`} placeholder="Beat thumbnail..."
+          {...register('thumbnail', {
+            required: 'Thumbnail is required',
+            validate: (value) => isURL(value) || 'URL is not valid'
+          })} />
+        {errors.thumbnail && (<div className="invalid-feedback">{errors.thumbnail.message}</div>)}
+      </div>
+
+      <div className="input-group mb-1">
+        <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
+        <input type="text" className={`form-control ${errors.url ? 'is-invalid' : ''}`} placeholder="Beat url..."
+          {...register('url', {
+            required: 'url is required',
+            validate: (value) => isURL(value) || 'URL is not valid' 
+          })}/>
+        {errors.url && (<div className="invalid-feedback">{errors.url.message}</div>)}
+      </div>
 
       <Controller 
         name="categories"
@@ -86,9 +88,9 @@ function BeatForm() {
             {errors.categories && (<div className="invalid-feedback">{errors.categories.message}</div>)}
           </div>
         )}
-      />    
+      />
 
-    <div className="d-grid mt-2">
+      <div className="d-grid mt-2">
         <button className="btn btn-primary" type='submit' disabled={!isValid}>Create Beat</button>
       </div>
     </form>
