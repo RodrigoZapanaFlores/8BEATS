@@ -1,9 +1,9 @@
-import { ListBeats } from "../../../components"
+import { ListBeat } from "../../../components"
 
 function ListBeatsScreen() {
   return (
     <>
-      <ListBeats />
+      <ListBeat />
     </>
   )
 }

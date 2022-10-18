@@ -15,12 +15,15 @@ function Profile() {
 
   useEffect(() => {
     Services
-      .getProfile(id)
-      .then(user => setUser(user[0]))
+      .Profile(id)
+      .then(userConnected => setUser(userConnected))
       .catch(error => console.error(error))
   }, [id]) 
 
   console.log('Rendering user detail')
+  if (!userConnected) return <></>
+  console.log(userConnected)
+
   return (
     <div className="profile">
       {
@@ -30,12 +33,10 @@ function Profile() {
               <div className="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
                 <div className="img-profile card d-flex">
                   <div className="align-items-center text-center">
-                    <img src="https://ca.slack-edge.com/T03BGN686QJ-U03CE8042BU-871f5c5f2740-192" alt="profile-img" className="rounded-circle" width="190" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/16/16363.png" alt="profile-img" className="rounded-circle" width="190" />
                     <div>
                       <h4>{user.id}</h4>
-                      <p>Bienvenido a tu perfil<p/>
-                      <p/>Desde aquí podrás gestionar todos tus pedidos, tanto los que ofreces como aquellos que necesitas</p>
-                          ¡Manos a la obra!
+                      
                     </div>
                   </div>
                 </div>
@@ -46,7 +47,7 @@ function Profile() {
                   <div className="card-body d-flex flex-column justify-content-evenly">
                       <div>
                         <h6>Nombre</h6>
-                        <p>{user.name}</p>
+                        <p>{userConnected.name}</p>
                       </div>
                     <div>
                       <h6>Apellidos</h6>

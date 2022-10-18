@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import * as beatService from '../../../services/beat-service';
 import BeatItem from '../beat-item/BeatItem';
 
-function BeatList() {
+function ListBeat() {
   const [beats, setBeats] = useState([]);
   
   useEffect(() => {
-    beatService.getBeats()
+    beatService.List()
       .then(beats => setBeats(beats))
       .catch(error => console.error(error));
   }, [])
@@ -22,4 +22,4 @@ function BeatList() {
   )
 }
 
-export default BeatList
+export default ListBeat

@@ -6,13 +6,13 @@ import Select from 'react-select';
 import categories from '../../../data/categories';
 import { isURL } from '../../../utils/validations';
 
-function BeatForm() {
+function FormBeat() {
   const navigation = useNavigate();
   const { register, handleSubmit, setError, control, formState: { errors, isValid } } = useForm({ mode: 'onTouched' });
 
   const handleCreateBeatSubmit = (data) => {
     console.log(data);
-    beatsService.createBeat(data)
+    beatsService.create(data)
       .then(beat => navigation('/'))
       .catch(error => {
         if (error.response?.data?.errors) {
@@ -97,4 +97,4 @@ function BeatForm() {
   )
 }
 
-export default BeatForm
+export default FormBeat

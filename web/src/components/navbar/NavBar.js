@@ -15,7 +15,7 @@ function NavBar() {
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
               <Link 
-                to="/create-beat"
+                to="/beats/create"
                         className={({ isActive }) =>
                           isActive ? "nav-link active" : "nav-link"
                         }
@@ -25,12 +25,12 @@ function NavBar() {
           </li>
           <li className="nav-item">
               <Link 
-                to="/"
+                to="/beats/List"
                       className={({ isActive }) =>
                         isActive ? "nav-link active" : "nav-link"
                       }
                     >
-                Dicover
+                ALLBeats
               </Link>
           </li>
           
@@ -46,7 +46,7 @@ function NavBar() {
           </li>
           <li className="nav-item">
               <Link 
-                to="/myist"
+                to="/myList"
                       className={({ isActive }) =>
                         isActive ? "nav-link active" : "nav-link"
                       }

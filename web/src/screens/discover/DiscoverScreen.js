@@ -1,15 +1,15 @@
 import React from 'react'
-import { Section, BeatList } from '../../components'
+import { Section, ListBeat } from '../../components'
 
 function DiscoverScreen() {
   return (
     <>
       <Section title="Top" icon="fire">
-        <BeatList />
+        <ListBeat />
       </Section>
 
       <Section title="Discover" icon="wpexplorer">
-        <BeatList />
+        <ListBeat />
       </Section>
     </>
   )

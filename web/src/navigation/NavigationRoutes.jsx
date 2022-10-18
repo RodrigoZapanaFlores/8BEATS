@@ -18,7 +18,7 @@ function NavigationRoutes() {
     <Routes>
       <Route path="/" element={ <Screens.HomeScreen /> } />
       <Route path="/login" element={ <Screens.LoginScreen /> } />
-      <Route path="/beats" element={ <Screens.ListBeatsScreen /> } />
+      <Route path="/beats/list" element={ <Screens.ListBeatsScreen /> } />
       
       <Route path="/beat/:id" element={
         <AuthGuard>
@@ -30,7 +30,7 @@ function NavigationRoutes() {
           <Screens.CreateBeatScreen />
         </AuthGuard>
       } />
-      <Route path="/users/:nickname" element={
+      <Route path="/profile" element={
         <AuthGuard>
           <Screens.ProfileScreen />
         </AuthGuard>

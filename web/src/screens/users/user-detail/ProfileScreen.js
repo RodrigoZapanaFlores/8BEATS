@@ -3,6 +3,7 @@ import Profile from '../../../components/users/user-detail/Profile'
 
 
 function ProfileScreen() {
+  
   return (
     <div>
     <Profile />

@@ -20,22 +20,28 @@ http.interceptors.response.use(
   }
 );
 
-export function getProfile() {
-  return http.get("/profile");
+export function Profile() {
+  return http.get(`/profile`);
 }
 
-export function getBeats() {
-  return http.get("/beats");
+export function List() {
+  return http.get("/beats/list", );
 }
 
-export function getBeat(id) {
+//export function getBeat(id) {
   // TODO
-}
+//}
 
-export function createBeat(beat) {
-  return http.post("/beats", beat);
+export function create(beat) {
+  return http.post("/beats/create", beat);
 }
 
 export function authenticate(data) {
   return http.post("/authenticate", data);
 }
+
+export function logout() {
+  return http.delete("/logout");
+}
+
+
