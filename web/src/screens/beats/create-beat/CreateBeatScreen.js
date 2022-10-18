@@ -1,5 +1,5 @@
 import React from 'react'
-import { Section, BeatForm } from '../../components'
+import { Section, BeatForm } from '../../../components'
 
 function CreateBeatScreen() {
   return (
