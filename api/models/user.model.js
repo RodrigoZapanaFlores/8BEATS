@@ -1,4 +1,4 @@
-/*const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 
@@ -67,4 +67,3 @@ userSchema.methods.checkPassword = function (passwordToMatch) {
 const User = mongoose.model("User", userSchema);
 module.exports = User;
 
-*/

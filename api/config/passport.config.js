@@ -1,4 +1,4 @@
-/*const SlackStrategy = require("passport-slack-oauth2").Strategy;
+const SlackStrategy = require("passport-slack-oauth2").Strategy;
 const passport = require("passport");
 
 passport.use(
@@ -13,4 +13,3 @@ passport.use(
   )
 );
 
-*/

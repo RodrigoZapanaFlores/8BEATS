@@ -1,10 +1,10 @@
-/*const Comment = require("../models/comment.model");
+const Comment = require("../models/comment.model");
 const createError = require("http-errors");
 
 module.exports.create = (req, res, next) => {
   Comment.create({
     text: req.body.text,
-    beat: req.params.id,
+    stream: req.params.id,
     user: req.user.id,
   })
     .then((comment) => res.status(201).json(comment))
@@ -25,4 +25,3 @@ module.exports.delete = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch(next);
 };
-*/
