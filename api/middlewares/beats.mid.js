@@ -1,5 +1,5 @@
-const Beat = require("../models/beat.model");
-const Comment = require("../models/comment.model");
+const { Beat, Comment } = require("../models");
+
 const createError = require("http-errors");
 
 module.exports.isOwnedByUser = (req, res, next) => {

@@ -1,10 +1,10 @@
-const Comment = require("../models/comment.model");
+const { Comment } = require("../models");
 const createError = require("http-errors");
 
 module.exports.create = (req, res, next) => {
   Comment.create({
     text: req.body.text,
-    stream: req.params.id,
+    beat: req.params.id,
     user: req.user.id,
   })
     .then((comment) => res.status(201).json(comment))

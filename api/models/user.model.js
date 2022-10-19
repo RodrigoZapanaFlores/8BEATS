@@ -9,6 +9,11 @@ const PW_PATTERN = /^.{8,}$/;
 
 const userSchema = new Schema(
   {
+    displayName: {
+      type: String,
+      required: "Name is required",
+      trim: true,
+    },
     name: {
       type: String,
       required: "Name is required",
@@ -27,8 +32,21 @@ const userSchema = new Schema(
       required: "Password is required",
       match: [PW_PATTERN, "Password needs at least 8 chars"],
     },
+    bio: {
+      type: String,
+      required: 'Biography',
+      trim: true
+    },
+
     social: {
       type: String,
+      required: 'IG',
+      trim: true
+    },
+    city: {
+      type: String,
+      required: "city is required",
+      trim: true,
     },
   },
   {
@@ -63,6 +81,14 @@ userSchema.pre("save", function (next) {
 userSchema.methods.checkPassword = function (passwordToMatch) {
   return bcrypt.compare(passwordToMatch, this.password);
 };
+
+
+
+userSchema.virtual("beats", {
+  ref: "Beat",
+  localField: "_id",
+  foreignField: "owner",
+});
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

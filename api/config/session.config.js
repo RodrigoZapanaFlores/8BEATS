@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const { User } = require('../models');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');

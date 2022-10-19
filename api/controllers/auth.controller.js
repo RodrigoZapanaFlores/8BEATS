@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const User = require("../models/user.model");
+const { User } = require("../models");
 
 module.exports.profile = (req, res, next) => {
   res.json(req.user);
