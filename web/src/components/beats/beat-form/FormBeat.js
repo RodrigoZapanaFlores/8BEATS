@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import * as beatsService from '../../../services/beat-service';
+import * as Service from '../../../services/beatService';
 import Select from 'react-select';
 import categories from '../../../data/categories';
 import { isURL } from '../../../utils/validations';
@@ -12,7 +12,7 @@ function FormBeat() {
 
   const handleCreateBeatSubmit = (data) => {
     console.log(data);
-    beatsService.create(data)
+    Service.createBeat(data)
       .then(beat => navigation('/'))
       .catch(error => {
         if (error.response?.data?.errors) {

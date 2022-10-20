@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import * as beatService from '../../../services/beat-service';
+import * as Services from '../../../services/beatService';
 import BeatItem from '../beat-item/BeatItem';
 
 function ListBeat() {
   const [beats, setBeats] = useState([]);
   
   useEffect(() => {
-    beatService.List()
+    Services.getBeats()
       .then(beats => setBeats(beats))
       .catch(error => console.error(error));
   }, [])

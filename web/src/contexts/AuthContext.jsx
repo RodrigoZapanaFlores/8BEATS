@@ -1,25 +1,19 @@
-import { createContext, useState, useEffect } from "react";
-import { Profile } from "../services/beat-service";
+const { createContext, useState } = require("react");
 
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const [user, setUser] = useState(undefined); // undefined means loading
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
-  useEffect(() => {
-    Profile()
-      .then((user) => setUser(user))
-      .catch((user) => setUser(null));
-  }, []);
+  function login(user) {
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+  }
 
   const value = {
     user,
-    setUser,
+    setUser: login,
   };
-
-  if (user === undefined) {
-    return <></>;
-  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
-import { authenticate } from "../../services/beat-service";
+import * as Services from "../../services/userservice";
 
 function LoginScreen() {
   const navigation = useNavigate();
@@ -17,7 +17,7 @@ function LoginScreen() {
   } = useForm({ mode: "onTouched" });
 
   const handleLogin = (data) => {
-    authenticate(data)
+    Services.login(data)
       .then((data) => {
         value.setUser(data);
         navigation("/");
