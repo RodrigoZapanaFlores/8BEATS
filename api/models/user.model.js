@@ -7,6 +7,18 @@ const EMAIL_PATTERN =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PW_PATTERN = /^.{8,}$/;
 
+
+const isURL = (value) => {
+  try {
+    new URL(value);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+
+
 const userSchema = new Schema(
   {
     displayName: {
@@ -38,11 +50,22 @@ const userSchema = new Schema(
       trim: true
     },
 
+      thumbnail: {
+      type: String,
+      required: "Thumbnail is required",
+      trim: true,
+      validate: {
+        validator: isURL,
+        message: "URL is not valid",
+      },
+    },
     social: {
       type: String,
       required: 'IG',
       trim: true
     },
+    
+
     city: {
       type: String,
       required: "city is required",

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { beats, comments, auth, users } = require("../controllers");
+const { beats, auth, users } = require("../controllers");
 const secure = require("../middlewares/secure.mid");
 const beatsMid = require("../middlewares/beats.mid");
 
@@ -18,7 +18,7 @@ router.patch("/beats/:id",secure.isAuthenticated,beatsMid.isOwnedByUser,beats.up
 //router.delete("/beats/:id/comments/:commentId",secure.isAuthenticated,beatsMid.isCommentOwnedByUser,comments.delete);
 
 
-router.get("/users/list", users.list);
+router.get("/users", users.list);
 router.post("/users/create", secure.isAuthenticated, users.create);
 router.delete("/users/:id",secure.isAuthenticated, users.delete);
 router.get("/users/:id", users.detail);
@@ -26,7 +26,6 @@ router.patch("/users/:id",secure.isAuthenticated, users.update);
 
 
 router.post("/register", auth.register);
-router.get("/profile", secure.isAuthenticated, auth.profile);
 router.post("/authenticate", auth.authenticate);
 router.delete("/logout", auth.logout);
 

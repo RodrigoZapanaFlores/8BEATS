@@ -19,7 +19,7 @@ module.exports.update = (req, res, next) => {
       city: req.body.city,
       bio: req.body.bio,
       social: req.body.social,
-      
+      thumbnail: req.body.thumbnail
     },
     {
       new: true,

@@ -4,22 +4,17 @@ const createError = require("http-errors");
 
 module.exports.list = (req, res, next) => {
   Beat.find()
+    .populate('owner', 'name email')
     .then((beats) => res.json(beats))
     .catch((error) => next(error));
 };
 
-
 module.exports.create = (req, res, next) => {
-  Beat.create({
-    title: req.body.title,
-    owner: req.body.owner,
-    social: req.body.social,
-    description: req.body.description,
-    bpms: req.body.bpms,
-    machine: req.body.machine,
-    categories: req.body.categories,
-    email: req.body.email
-  })
+  const beat = req.body;
+  delete beat.views;
+  beat.owner = req.user.id;
+
+  Beat.create(beat)
     .then((beat) => res.status(201).json(beat))
     .catch(next);
 };
@@ -27,38 +22,25 @@ module.exports.create = (req, res, next) => {
   
 module.exports.detail = (req, res, next) => {
   Beat.findById(req.params.id)
+    .populate('owner', 'name email')
     .then((beat) => {
       if (beat) {
         res.json(beat);
       } else {
-        next(createError(404, "Beat not found"));
+        next(createError(404, "beat not found"));
       }
     })
     .catch(next);
 };
 
 module.exports.update = (req, res, next) => {
-  Beat.findByIdAndUpdate(
-    req.params.id,
-    {
-      title: req.body.title,
-      description: req.body.description,
-      categories: req.body.categories,
-      bpms: req.body.bpms,
-      url: req.body.bpms
-    },
-    {
-      new: true,
-      runValidarors: true,
-    }
-  )
-    .then((beat) => {
-      if (beat) {
-        res.json(beat);
-      } else {
-        next(createError(404, "Beat not found"));
-      }
-    })
+  const data = req.body;
+  delete data.views;
+  delete data.owner;
+
+  const beat = Object.assign(req.beat, data);
+  Beat.save()
+    .then((beat) => res.json(beat))
     .catch(next);
 };
 
