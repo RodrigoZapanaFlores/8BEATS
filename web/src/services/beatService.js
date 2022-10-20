@@ -2,20 +2,32 @@ import axios from "axios";
 
 const http = axios.create({
   baseURL: "http://localhost:3001/api/v1",
-  withCredentials: true
+  withCredentials: true,
 });
 
+http.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error?.response?.status === 401) {
+      window.location.replace("/login");
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export function getBeats() {
-  return http.get("/beats/list", );
+  return http.get("/beats/list").then((res) => res.data);
 }
 
 export function getBeat(id) {
-  return http.get(`/beat/${id}`)
+  return http.get(`/beat/${id}`).then((res) => res.data);
 }
 
 export function createBeat(beat) {
-  return http.post("/beats/create", beat);
+  return http.post("/beats/create", beat).then((res) => res.data);
 }
 
 export function updateBeat(id, beat) {

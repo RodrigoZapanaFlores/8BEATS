@@ -1,7 +1,7 @@
 import * as Services from "../../../services/userservice";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //import { Link } from "react-router-dom"; para linkear un boton de editar
-
+import { UserItem } from "../../"
 function ListUsers() {
   const [users, setUsers] = useState([]);
 

@@ -7,7 +7,7 @@ function ListBeatScreen() {
         <ListBeat />
       </Section>
 
-      <Section title="ListBeat" icon="wpexplorer">
+      <Section title="Discover" icon="wpexplorer">
         <ListBeat />
       </Section>
     </>
