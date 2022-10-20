@@ -71,7 +71,7 @@ module.exports.delete = (req, res, next) => {
 module.exports.like = (req, res, next) => {
   const detail = {
     user: req.user.id,
-    stream: req.params.id,
+    beat: req.params.id,
   };
 
 

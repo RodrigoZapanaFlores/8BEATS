@@ -52,6 +52,7 @@ module.exports.authenticate = (req, res, next) => {
     .catch(next);
 };
 
+
 module.exports.logout = (req, res, next) => {
   req.session.destroy();
   req.session = null;
