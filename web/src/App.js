@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from './components';
-import { HomeScreen, ListBeatScreen, CreateBeatScreen, DetailBeatScreen, ListUserScreen, CreateUserScreen, LoginScreen } from './screens';
+import { HomeScreen, ListBeatScreen, CreateBeatScreen, DetailBeatScreen, ListUserScreen, CreateUserScreen, LoginScreen, ProfileUserScreen } from './screens';
 
 
 
@@ -17,9 +17,10 @@ function App() {
        <Route path='/AddBeats' element={<CreateBeatScreen />} />
        
        <Route path='/BeatMakers' element={<ListUserScreen />} />
+       <Route path='/Profile' element={<ProfileUserScreen />} />
        <Route path='/Register' element={<CreateUserScreen />} />
        <Route path='/login' element={<LoginScreen />} />
-       
+
       </Routes>
    </div>
   </>

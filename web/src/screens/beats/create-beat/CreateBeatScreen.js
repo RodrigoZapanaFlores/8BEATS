@@ -4,7 +4,7 @@ import { Section, FormBeat } from '../../../components'
 function CreateBeatScreen() {
   return (
     <>
-      <Section title="Create Beat" icon="edit">
+      <Section title="upload files" icon="edit">
         <FormBeat />
       </Section>
     </>

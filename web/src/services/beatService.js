@@ -27,7 +27,12 @@ export function getBeat(id) {
 }
 
 export function createBeat(beat) {
-  return http.post("/beats/create", beat).then((res) => res.data);
+  beat.audio = beat.audio[0]
+  const data = new FormData()
+  Object.keys(beat).forEach(key => {
+    data.append(key, beat[key])
+  })
+  return http.post("/beats/create", data)
 }
 
 export function updateBeat(id, beat) {

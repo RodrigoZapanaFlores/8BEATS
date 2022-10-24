@@ -29,7 +29,7 @@ function FormBeat() {
   return (
     <form onSubmit={handleSubmit(handleCreateBeatSubmit)}>
       <div className="input-group mb-1">
-        <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
+        <span className="input-group-text"><i className='fa fa-text-width'></i></span>
         <input type="text" className={`form-control ${errors.title ? 'is-invalid' : ''}`} placeholder="Beat title..." 
           {...register('title', { 
             required: 'Title is required', 
@@ -39,12 +39,21 @@ function FormBeat() {
       </div>
 
       <div className="input-group mb-1">
-        <span className="input-group-text"><i className='fa fa-edit fa-fw'></i></span>
+        <span className="input-group-text"><i className='fa fa-file-text-o'></i></span>
         <textarea className="form-control" 
           {...register('description', {
             required: 'Description is required'
           })}
         />
+      </div>
+
+      <div className="input-group mb-1">
+      <span className="input-group-text"><i className='fa fa-clock-o'></i></span>
+      <input type="text" className={`form-control ${errors.bpms ? 'is-invalid' : ''}`} placeholder="Beat BPM..." 
+          {...register('bpms', { 
+            required: 'BPM is required', 
+          })} />
+
       </div>
 
       <div className="input-group mb-1">
@@ -58,7 +67,7 @@ function FormBeat() {
       </div>
 
       <div className="input-group mb-1">
-        <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
+        <span className="input-group-text"><i className='fa fa-link'></i></span>
         <input type="text" className={`form-control ${errors.url ? 'is-invalid' : ''}`} placeholder="Beat url..."
           {...register('url', {
             required: 'url is required',
@@ -67,12 +76,21 @@ function FormBeat() {
         {errors.url && (<div className="invalid-feedback">{errors.url.message}</div>)}
       </div>
 
+      <div className="input-group mb-1">
+      <span className="input-group-text"><i className='fa fa-clock-o'></i></span>
+      <input type="file" className={`form-control ${errors.audio ? 'is-invalid' : ''}`} placeholder="Beat FILE..." 
+          {...register('audio', { 
+            required: 'FILE is required', 
+          })} />
+      </div>
+
+
       <Controller 
         name="categories"
         control={control}
         render={({ field: { onBlur, onChange, value } }) => (
           <div className="input-group mb-1">
-            <span className="input-group-text"><i className='fa fa-list fa-fw'></i></span>
+            <span className="input-group-text"><i className='fa fa-tag fa-fw'></i></span>
             <Select className='form-control p-0' 
               value={categories.find((category) => category.value === value)} 
               onChange={(categories) => onChange(categories.map(category => category.value))} 

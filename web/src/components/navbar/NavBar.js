@@ -1,9 +1,15 @@
-import React from "react";
+
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 
-function NavBar() {
+  function NavBar() {
+    const { user } = useContext(AuthContext);
   
+    if (!user) {
+      return null;
+    }
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
@@ -26,15 +32,8 @@ function NavBar() {
           </li >
 
           <li className="nav-item">
-            <Link to="/BeatMakers" className="nav-link active">
-              BEATMakers
-            </Link>
-
-          </li>
-
-          <li className="nav-item">
-            <Link to="/BeatMakers" className="nav-link active">
-              BEATMakers
+            <Link to="/Profile" className="nav-link active">
+              Perfil : {user.name}
             </Link>
 
           </li>

@@ -18,7 +18,7 @@ export function createUser(user){
 
 }
 export function login(data) {
-  return http.post("/authenticate", data);
+  return http.post("/authenticate", data).then((res) => res.data);
 }
 
 export function logout() {

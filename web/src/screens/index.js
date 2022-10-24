@@ -5,3 +5,4 @@ export { default as CreateBeatScreen } from "./beats/create-beat/CreateBeatScree
 export { default as LoginScreen } from "./login/LoginScreen";
 export { default as ListUserScreen } from './users/List/ListUserScreen';
 export { default as CreateUserScreen } from './users/Create-user/CreateUserScreen';
+export { default as ProfileUserScreen } from './users/Detail-user/ProfileUserScreen';
