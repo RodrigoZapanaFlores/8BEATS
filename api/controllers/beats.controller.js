@@ -4,7 +4,7 @@ const createError = require("http-errors");
 
 module.exports.list = (req, res, next) => {
   Beat.find()
-    .populate('owner', 'name email')
+    .populate('owner' )
     .then((beats) => res.json(beats))
     .catch((error) => next(error));
 };
@@ -13,6 +13,7 @@ module.exports.create = (req, res, next) => {
   const beat = req.body;
   delete beat.views;
   beat.owner = req.user.id;
+  beat.audio = req.file.path;
 
   Beat.create(beat)
     .then((beat) => res.status(201).json(beat))
@@ -22,7 +23,7 @@ module.exports.create = (req, res, next) => {
   
 module.exports.detail = (req, res, next) => {
   Beat.findById(req.params.id)
-    .populate('owner', 'name email')
+    .populate('owner')
     .then((beat) => {
       if (beat) {
         res.json(beat);

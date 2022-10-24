@@ -32,9 +32,13 @@ const beatSchema = new Schema(
         message: "URL is not valid",
       },
     },
+    audio: {
+      type: String,
+    },
+
     views: Number,
 
-    bpms: Number,
+    bpms: String,
 
     categories: {
       type: [
